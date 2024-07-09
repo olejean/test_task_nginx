@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  load_balancer:
+    image: nginx:latest
+    volumes:
+      - ./load_balancer.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"  # Привязка порта 80 на хосте к порту 80 в контейнере
+    networks:
+      - backend_network
+
+  nginx1:
+    image: nginx:latest
+    volumes:
+      - ./nginx1.conf:/etc/nginx/nginx.conf
+    networks:
+      - backend_network
+
+  nginx2:
+    image: nginx:latest
+    volumes:
+      - ./nginx2.conf:/etc/nginx/nginx.conf
+    networks:
+      - backend_network
+
+  nginx3:
+    image: nginx:latest
+    volumes:
+      - ./nginx3.conf:/etc/nginx/nginx.conf
+    networks:
+      - backend_network
+
+  app:
+    build: ./app
+    container_name: app
+    networks:
+      - backend_network
+
+
+networks:
+  backend_network:
+    driver: bridge
+
