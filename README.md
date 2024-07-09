@@ -48,9 +48,9 @@ X-Forwarded-For.
 - Балансировщик нагрузки: Контейнер load_balancer распределяет запросы по круговой схеме (round robin) между nginx1, nginx2, и nginx3.
 
 конфигурации nginx1.conf nginx2.conf nginx3.conf Настроены на проксирование по цепочке и напрямую в приложение. 
-nginx1 > nginx2 > app
-nginx2 > nginx3 > app
-nginx3 > app
+ - nginx1 > nginx2 > app
+ - nginx2 > nginx3 > app
+ - nginx3 > app
 - В зависимоти на какой nginx  передаст запрос балансировщик нагрузки, по тому пути и пойдет.
 
 - Конфигурации nginx1, nginx2, nginx3: Каждый nginx сервер удаляет пользовательский заголовок X-Forwarded-For и добавляет свой заголовок перед проксированием на следующий сервер.
